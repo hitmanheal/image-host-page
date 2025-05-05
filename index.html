@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,10 +7,11 @@
   <style>
     body {
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
-      height: 100vh;
+      padding: 40px;
       background-color: #f4f4f4;
+      font-family: sans-serif;
     }
     a {
       font-size: 24px;
@@ -20,10 +21,64 @@
       padding: 10px 20px;
       border-radius: 8px;
       box-shadow: 0 0 5px rgba(0,0,0,0.2);
+      margin: 10px 0;
+    }
+    form {
+      margin-top: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    .contour-list {
+      margin-top: 20px;
+      width: 100%;
+      max-width: 500px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
   </style>
 </head>
 <body>
+
+  <!-- Ссылка на существующий контур -->
   <a href="page1.html">Контур: 2172</a>
+
+  <!-- Форма добавления -->
+  <form id="contourForm">
+    <input type="text" id="contourName" placeholder="Название контура (например, Контур: 2173)" required>
+    <input type="text" id="pageLink" placeholder="Имя файла (например, 2173_page.html)" required>
+    <button type="submit">Добавить контур</button>
+  </form>
+
+  <!-- Список добавленных контуров -->
+  <div class="contour-list" id="contourList"></div>
+
+  <script>
+    const form = document.getElementById('contourForm');
+    const list = document.getElementById('contourList');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('contourName').value.trim();
+      const link = document.getElementById('pageLink').value.trim();
+
+      if (name && link) {
+        const a = document.createElement('a');
+        a.href = link;
+        a.textContent = name;
+        a.target = "_blank";
+        list.appendChild(a);
+        form.reset();
+      }
+    });
+  </script>
+
 </body>
 </html>
